@@ -33,11 +33,11 @@ function display(cards) {
 
 
 /*
-prepareCounters:
+memoryCounters:
 - displays number of moves on the deck.
 - list the stars on the deck.
 */
-function prepareCounters() {
+function memoryCounters() {
 
   $moves.text(`${movesCount}`);
 
