@@ -30,7 +30,17 @@ function display(cards) {
        $('.deck').append($card);
   }
 }
+memoryCounters();
 
+	second = 0;
+	$timer.text(`${second}`);
+	initTime();
+
+
+  $restarter.on('click', function(){
+      restart();
+  });
+}
 
 /*
 memoryCounters:
@@ -118,6 +128,32 @@ if ( opened_cards[0].children().attr('class') == opened_cards[1].children().attr
     opened_cards = [];
  }, 500);
 }
+}
+/*
+restart:
+- it resets everything to play the game again.
+*/
+function restart(){
+ 	$('.deck').empty();
+ 	opened_cards =[];
+  cleanStars();
+ 	matchers = 0;
+  movesCount = 0;
+  resetTimer(currentTimer);
+
+ 	display(card_list);
+
+}
+/*
+cleanStars:
+- it removes the empty stars during restarting the game so that the filled stars will take its place.
+*/
+function cleanStars() {
+  let j = 2;
+  while(j >= 0){
+  $('.stars').children()[j].remove();
+    j--;
+  }
 }
 
 
