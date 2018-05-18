@@ -1,3 +1,4 @@
+
 card_list = ["space-shuttle","space-shuttle", "laptop", "laptop", "git-square", "git-square", "gamepad","gamepad",
 "headphones","headphones", "rocket","rocket","linux","linux","reddit-alien","reddit-alien" ];
 
@@ -28,25 +29,15 @@ function display(cards) {
        $card = memoryCard(shuffled[i]);
        $('.deck').append($card);
   }
-};
-memoryCounters();
+}
 
-	second = 0;
-	$timer.text(`${second}`);
-	initTime();
-
-
-  $restarter.on('click', function(){
-      restart();
-  });
-};
 
 /*
-memoryCounters:
+prepareCounters:
 - displays number of moves on the deck.
 - list the stars on the deck.
 */
-function memoryCounters() {
+function prepareCounters() {
 
   $moves.text(`${movesCount}`);
 
@@ -55,7 +46,7 @@ function memoryCounters() {
    			$('.stars').append('<li><i class="fa fa-star"></i></li>');
    			j--;
  		}
-};
+}
 
 /*
 memoryCard:
@@ -98,7 +89,7 @@ function memoryCard(name) {
    });
 
    return $card;
-};
+}
 
 
 
@@ -119,15 +110,15 @@ if ( opened_cards[0].children().attr('class') == opened_cards[1].children().attr
 
 
   opened_cards = [];
-}};
- else {
-   setTimeout( function () {
-     opened_cards[0].removelass("show open");
-     opened_cards[1].removeClass("show open");
-     opened_cards = [];
-  }, 300);
-};
+} else {
+ setTimeout( function () {
+    opened_cards[0].removeClass("show open");
+    opened_cards[1].removeClass("show open");
 
+    opened_cards = [];
+ }, 500);
+}
+}
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
