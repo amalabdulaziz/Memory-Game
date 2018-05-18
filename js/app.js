@@ -42,7 +42,7 @@ memoryCounters();
 };
 
 /*
-prepareCounters:
+memoryCounters:
 - displays number of moves on the deck.
 - list the stars on the deck.
 */
