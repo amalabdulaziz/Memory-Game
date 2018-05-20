@@ -153,7 +153,7 @@ function restart(){
   movesCount = 0;
   resetTimer(currentTimer);
 
- 	display(start_game);
+  start_game();
 
 }
 /*
