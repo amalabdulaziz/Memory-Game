@@ -157,7 +157,17 @@ function restart(){
   start_game();
 
 }
-
+/*
+cleanStars:
+- it removes the empty stars during restarting the game so that the filled stars will take its place.
+*/
+function cleanStars() {
+  let j = 2;
+  while(j >= 0){
+  $('.stars').children()[j].remove();
+    j--;
+  }
+}
 
 async function close_cards(array_cards) {
     let del = await delay(1000)
