@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-    
+
     <div class="container">
         <header>
             <h1>Matching Game</h1>
         </header>
 
-        <section class="score-panel">
+        <section class="score-panel" style="display: none">
             <ul class="stars">
                 <li>
                     <i class="fa fa-star"></i>
@@ -29,11 +29,14 @@
                     <i class="fa fa-star"></i>
                 </li>
             </ul>
-            <span class="moves">0</span> Moves | Time:
+            <span id="player"></span>
+           Moves
+           <span class="moves">0  </span>
+           |Time:
             <span class="timer">0</span> s
            <span>|  Matches  </span> <span class="matches">0</span>
             <div class="restart">
-                <i class="fa fa-repeat" onclick="start_game()"></i>
+                <i class="fa fa-repeat" onclick="restart()"></i>
             </div>
         </section>
        <div class="game_panel">
