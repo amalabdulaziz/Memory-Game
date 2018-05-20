@@ -5,7 +5,7 @@ card_list = ["space-shuttle", "space-shuttle", "laptop", "laptop", "git-square",
 var matchers = 0;
 var movesCount = 0;
 var starCounts = 3;
-var opened_cards = [];
+var opened_cards = []
 
 
 $score_panel = $('.score-panel');
@@ -78,7 +78,7 @@ function memoryCard(name) {
                <i class="fa fa-${name}"></i>
            </li>`);
 
-    $card.on("click", ()=> {
+    $card.on("click", function() {
 
         if (!$(this).hasClass('show open')) {
 
@@ -188,7 +188,7 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-;
+
     return array;
 }
 async function start_game() {
