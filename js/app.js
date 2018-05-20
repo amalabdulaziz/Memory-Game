@@ -141,6 +141,10 @@ restart:
 - it resets everything to play the game again.
 */
 function restart(){
+     if(nowTime)
+     {
+         clearInterval(nowTime)
+     }
  	$('.deck').empty();
   $('.timer').empty();
   $('.restart').empty();
@@ -149,7 +153,6 @@ function restart(){
   cleanStars();
  	matchers = 0;
   movesCount = 0;
-  resetTimer(currentTimer);
 
   start_game();
 
