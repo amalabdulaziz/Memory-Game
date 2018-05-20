@@ -39,7 +39,7 @@ function initTime() {
     }, 1000);
 }
 
-function display(cards,shuffled) {
+function display(shuffled) {
     $deck.empty()
     initTime()
     // shuffled = shuffle(cards);
@@ -78,7 +78,7 @@ function memoryCard(name) {
                <i class="fa fa-${name}"></i>
            </li>`);
 
-    $card.on("click", function () {
+    $card.on("click", ()=> {
 
         if (!$(this).hasClass('show open')) {
 
@@ -126,7 +126,7 @@ function check_for_match() {
 
         matchers += 1;
         if (matchers == 8) {
-            game_over($moves.text(),$timer.text())
+            game_over($('#player').text(),$moves.text(),$timer.text())
         }
         $('.matches').html(matchers)
     } else {
@@ -141,32 +141,26 @@ restart:
 - it resets everything to play the game again.
 */
 function restart(){
+    $score_panel.hide()
+    prepareCounters()
      if(nowTime)
      {
          clearInterval(nowTime)
      }
- 	$('.deck').empty();
-  $('.timer').empty();
-  $('.restart').empty();
-  $('.moves').empty();
- 	opened_cards =[];
-  cleanStars();
- 	matchers = 0;
-  movesCount = 0;
+  $('.deck').empty();
+  $('.timer').text('0')
+  $('.moves').text('0')
+  $('.matches').text('0')
+  $('#player').empty()
 
+
+//   cleanStars();
+
+  matchers = 0;
+  movesCount = 0;
+  starCounts = 3;
   start_game();
 
-}
-/*
-cleanStars:
-- it removes the empty stars during restarting the game so that the filled stars will take its place.
-*/
-function cleanStars() {
-  let j = 2;
-  while(j >= 0){
-  $('.stars').children()[j].remove();
-    j--;
-  }
 }
 
 async function close_cards(array_cards) {
@@ -174,14 +168,14 @@ async function close_cards(array_cards) {
     array_cards[0].removeClass('show open')
     array_cards[1].removeClass('show open')
 }
-function open_cards(cards,shuffled) {
-    // array_cards = shuffle(cards);
+ function open_cards(shuffled) {
     for (let i = 0; i < shuffled.length; i++) {
         $card = memoryCard(shuffled[i]);
         $card.addClass('show open')
         $('.deck').append($card);
     }
 }
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length,
@@ -198,12 +192,30 @@ function shuffle(array) {
     return array;
 }
 async function start_game() {
-    var shuffled = shuffle(card_list);
-    $deck.empty();
-    open_cards(card_list,shuffled)
-    let delayres = await delay(5000);
-    $score_panel.show();
-    display(card_list,shuffled)
+    const {value: name} = await swal({
+
+        title: 'Please write your name!',
+        input: 'text',
+        inputPlaceholder: 'Enter your name or nickname',
+        showCancelButton: true,
+        inputValidator: (value) => {
+          return !value && 'You need to write something!'
+        }
+      })
+
+      if (name) {
+        if(nowTime)
+        {
+            clearInterval(nowTime)
+        }
+        $('#player').html('<b>'+name+'</br>')
+        var shuffled = shuffle(card_list);
+        $deck.empty();
+        open_cards(shuffled)
+        let delayres = await delay(5000);
+        $score_panel.show();
+        display(shuffled)
+      }
 }
 
 async function delay(delayInms) {
@@ -214,7 +226,7 @@ async function delay(delayInms) {
     });
 }
 
-function game_over(move,time) {
+function game_over(winner_name,move,time) {
     if(nowTime)
     {
         clearInterval(nowTime)
@@ -222,7 +234,7 @@ function game_over(move,time) {
     swal({
         title:'You Win',
         type:'success',
-        html:' You Take '+move+' moves and time '+time+' seconds<br>Play Again?',
+        html:$('#player').text()+' You Take '+move+' moves and time '+time+' seconds<br>Play Again?',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -230,7 +242,7 @@ function game_over(move,time) {
     }).then((response)=>{
         if(response.value)
         {
-            start_game();
+            restart();
         }
 
     });
