@@ -20,11 +20,8 @@ currentTimer = null;
 
 var nowTime
 /*
-display:
-prepare the deck in general;
-- shuffles and display the cards on the deck.
-- call prepareCounters.
-- start a timer and displays it on the deck.
+initTime:
+- initialize the timer.
 */
 function initTime() {
     var time = 0;
@@ -38,7 +35,13 @@ function initTime() {
         time += 1;
     }, 1000);
 }
-
+/*
+display:
+-Empty thr old card.
+- shuffles and display the cards on the deck.
+- start a timer and displays it on the deck.
+- append
+*/
 function display(shuffled) {
     $deck.empty()
     initTime()
@@ -154,7 +157,7 @@ function restart(){
   $('#player').empty()
 
 
-//   cleanStars();
+
 
   matchers = 0;
   movesCount = 0;
@@ -162,7 +165,7 @@ function restart(){
   start_game();
 
 }
-
+//Wait one second then deletd and close the card
 async function close_cards(array_cards) {
     let del = await delay(1000)
     array_cards[0].removeClass('show open')
@@ -191,6 +194,7 @@ function shuffle(array) {
 
     return array;
 }
+//Display beautiful Messages from https://sweetalert.js.org/guides/
 async function start_game() {
     const {value: name} = await swal({
 
@@ -225,7 +229,7 @@ async function delay(delayInms) {
         }, delayInms);
     });
 }
-
+// Display beautiful Messages from https://sweetalert.js.org/guides/
 function game_over(winner_name,move,time) {
     if(nowTime)
     {
